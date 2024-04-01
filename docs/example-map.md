@@ -71,7 +71,7 @@ div.style = "height: 400px;";
 const map = L.map(div).setView(center,zoom);
 var baseLayer = protomapsL.leafletLayer({url:'https://api.protomaps.com/tiles/v3/{z}/{x}/{y}.mvt?key=1003762824b9687f', theme:'black'})
 baseLayer.addTo(map);
-var layer = protomapsL.leafletLayer({url:areas._url, maxDataZoom:7, paintRules: [
+var layer = protomapsL.leafletLayer({url:areas.href, maxDataZoom:7, paintRules: [
   {
       dataLayer: "zcta",
       symbolizer: new protomapsL.PolygonSymbolizer({
@@ -115,7 +115,7 @@ const map = new maplibregl.Map({
 map.on("load", () => {
   map.addSource("zcta", {
       type: "vector",
-      url: `pmtiles://${areas._url}`
+      url: `pmtiles://${areas.href}`
   })
 
   map.addLayer({
