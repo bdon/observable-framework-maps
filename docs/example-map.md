@@ -12,7 +12,7 @@ Let's use them together!
 
 ```js
 import * as L from "npm:leaflet";
-import * as protomapsL from "npm:protomaps-leaflet@2.0.1";
+import * as protomapsL from "npm:protomaps-leaflet@3.1.1";
 ```
 
 
