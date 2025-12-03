@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.12.0">
+<title>Example map | Hello Framework</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.3268c726.css">
+<link rel="preload" as="style" href="./_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.3268c726.css">
+<link rel="stylesheet" type="text/css" href="./_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="modulepreload" href="./_observablehq/client.f50d850e.js">
+<link rel="modulepreload" href="./_observablehq/runtime.ced201bc.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.4bb699ea.js">
+<link rel="modulepreload" href="./_npm/leaflet@1.9.4/721623d8.js">
+<link rel="modulepreload" href="./_npm/protomaps-leaflet@3.1.1/a3beef92.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@4.0.2/2014cf86.js">
+<link rel="modulepreload" href="./_npm/pmtiles@3.0.3/8d190894.js">
+<link rel="modulepreload" href="./_npm/@mapbox/point-geometry@0.1.0/b3fd4ab6.js">
+<link rel="modulepreload" href="./_npm/color2k@2.0.3/639a46cc.js">
+<link rel="modulepreload" href="./_npm/@mapbox/vector-tile@1.3.1/26898f80.js">
+<link rel="modulepreload" href="./_npm/pbf@3.3.0/2ec8b671.js">
+<link rel="modulepreload" href="./_npm/pmtiles@3.2.1/297b024e.js">
+<link rel="modulepreload" href="./_npm/rbush@3.0.1/1ce3aa4f.js">
+<link rel="modulepreload" href="./_npm/potpack@1.0.2/b401eca1.js">
+<link rel="modulepreload" href="./_npm/ieee754@1.2.1/5bdff678.js">
+<link rel="modulepreload" href="./_npm/quickselect@2.0.0/3173efc6.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.f50d850e.js";
+import {registerFile} from "./_observablehq/stdlib.4bb699ea.js";
+
+registerFile("./data/cb_2018_us_zcta510_500k_nolimit.pmtiles", {"name":"./data/cb_2018_us_zcta510_500k_nolimit.pmtiles","path":"./_file/data/cb_2018_us_zcta510_500k_nolimit.8a8d0048.pmtiles","lastModified":1764730038796,"size":21470649});
+
+define({id: "f73127f2", outputs: ["L","protomapsL"], body: async () => {
+const [L, protomapsL] = await Promise.all([import("./_npm/leaflet@1.9.4/721623d8.js"), import("./_npm/protomaps-leaflet@3.1.1/a3beef92.js")]);
+
+return {L,protomapsL};
+}});
+
+define({id: "999595b5", outputs: ["center","zoom"], body: () => {
+const center = [38,-100];
+const zoom = 4;
+return {center,zoom};
+}});
+
+define({id: "534d1b0f", inputs: ["display","L","center","zoom","protomapsL"], outputs: ["div","map","layer"], body: (display,L,center,zoom,protomapsL) => {
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+const map = L.map(div).setView(center,zoom);
+var layer = protomapsL.leafletLayer({url:'https://api.protomaps.com/tiles/v3/{z}/{x}/{y}.mvt?key=1003762824b9687f',theme:'light'})
+layer.addTo(map);
+return {div,map,layer};
+}});
+
+define({id: "0ebf2b32", inputs: ["display","L","center","zoom","protomapsL"], outputs: ["div","map","layer"], body: (display,L,center,zoom,protomapsL) => {
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+const map = L.map(div).setView(center,zoom);
+var layer = protomapsL.leafletLayer({url:'https://data.source.coop/protomaps/openstreetmap/tiles/v3.pmtiles', theme:'light'})
+layer.addTo(map);
+return {div,map,layer};
+}});
+
+define({id: "1410ba43", inputs: ["display","L","center","zoom","protomapsL"], outputs: ["div","map","layer"], body: (display,L,center,zoom,protomapsL) => {
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+const map = L.map(div).setView(center,zoom);
+var layer = protomapsL.leafletLayer({url:'https://api.protomaps.com/tiles/v3/{z}/{x}/{y}.mvt?key=1003762824b9687f', theme:'dark'})
+layer.addTo(map);
+return {div,map,layer};
+}});
+
+define({id: "79fddfbb", inputs: ["FileAttachment"], outputs: ["areas"], body: (FileAttachment) => {
+const areas = FileAttachment("./data/cb_2018_us_zcta510_500k_nolimit.pmtiles");
+return {areas};
+}});
+
+define({id: "40e0934e", inputs: ["display","L","center","zoom","protomapsL","areas"], outputs: ["div","map","baseLayer","layer"], body: (display,L,center,zoom,protomapsL,areas) => {
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+const map = L.map(div).setView(center,zoom);
+var baseLayer = protomapsL.leafletLayer({url:'https://api.protomaps.com/tiles/v3/{z}/{x}/{y}.mvt?key=1003762824b9687f', theme:'black'})
+baseLayer.addTo(map);
+var layer = protomapsL.leafletLayer({url:areas.href, maxDataZoom:7, paintRules: [
+  {
+      dataLayer: "zcta",
+      symbolizer: new protomapsL.PolygonSymbolizer({
+          fill:"steelblue",
+          opacity: 1,
+          width: 0.2,
+          stroke: "cyan"
+      })
+  }
+]})
+layer.addTo(map);
+return {div,map,baseLayer,layer};
+}});
+
+define({id: "c28fb4f9", outputs: ["maplibregl","PMTiles","Protocol","protocol"], body: async () => {
+const [{default: maplibregl}, {PMTiles, Protocol}] = await Promise.all([import("./_npm/maplibre-gl@4.0.2/2014cf86.js"), import("./_npm/pmtiles@3.0.3/8d190894.js")]);
+const protocol = new Protocol();
+maplibregl.addProtocol("pmtiles",protocol.tile);
+return {maplibregl,PMTiles,Protocol,protocol};
+}});
+
+define({id: "b177ac82", inputs: ["display","maplibregl","zoom","center","areas"], outputs: ["div","map"], body: (display,maplibregl,zoom,center,areas) => {
+const div = display(document.createElement("div"));
+div.style = "height: 400px;";
+const map = new maplibregl.Map({
+  container: div,
+  zoom: zoom - 1,
+  center: [center[1],center[0]],
+  style: "https://api.protomaps.com/styles/v2/black.json?key=1003762824b9687f"
+})
+
+map.on("load", () => {
+  map.addSource("zcta", {
+      type: "vector",
+      url: `pmtiles://${areas.href}`
+  })
+
+  map.addLayer({
+    "id":"zcta",
+    "source": "zcta",
+    "source-layer":"zcta",
+    "type": "fill",
+    "paint": {
+        "fill-color": [
+          "case",
+          ['boolean', ['feature-state', 'hover'], false],
+          "red",
+          "steelblue"
+        ],
+        "fill-opacity": 0.7
+    }
+  })
+
+  map.addLayer({
+    "id":"zcta_stroke",
+    "source": "zcta",
+    "source-layer":"zcta",
+    "type": "line",
+    "paint": {
+        "line-color": "cyan",
+        "line-width": 0.2
+    }
+  })
+
+  let hoveredId = null;
+
+  const popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+  });
+
+  map.on('mousemove', 'zcta', (e) => {
+
+      if (e.features.length > 0) {
+          map.getCanvas().style.cursor = 'pointer';
+          const props = e.features[0].properties;
+          let result = '';
+          for (let key in props) {
+            if (props.hasOwnProperty(key)) {
+              result += key + ': ' + props[key] + '<br/>';
+            }
+          }
+          popup.setLngLat(e.lngLat).setHTML(result).addTo(map);
+
+          if (hoveredId) {
+              map.setFeatureState(
+                  {source: 'zcta', sourceLayer: "zcta", id: hoveredId},
+                  {hover: false}
+              );
+          }
+          hoveredId = e.features[0].id;
+          map.setFeatureState(
+              {source: 'zcta', sourceLayer: "zcta", id: hoveredId},
+              {hover: true}
+          );
+      }
+  });
+
+  map.on('mouseleave', 'zcta', () => {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+
+      if (hoveredId) {
+          map.setFeatureState(
+              {source: 'zcta', sourceLayer: "zcta", id: hoveredId},
+              {hover: false}
+          );
+      }
+      hoveredId = null;
+  });
+})
+return {div,map};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Hello Framework</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link"><a href="./example-dashboard">Example dashboard</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./example-map">Example map</a></li>
+    <li class="observablehq-link"><a href="./example-report">Example report</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#basic-api">Basic: API</a></li>
+<li class="observablehq-secondary-link"><a href="#basic-no-api">Basic: No API</a></li>
+<li class="observablehq-secondary-link"><a href="#themes">Themes</a></li>
+<li class="observablehq-secondary-link"><a href="#tiled-data-loading">Tiled Data Loading</a></li>
+<li class="observablehq-secondary-link"><a href="#interaction-map-libre-gl-js">Interaction: MapLibre GL JS</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<h1 id="leaflet-examples" tabindex="-1"><a class="observablehq-header-anchor" href="#leaflet-examples">Leaflet Examples</a></h1>
+<p><a href="https://observablehq.com/framework/" target="_blank" rel="noopener noreferrer">Observable Framework</a> is an open source static site generator for data apps.</p>
+<p><a href="https://github.com/protomaps" target="_blank" rel="noopener noreferrer">Protomaps</a> is an <a href="https://protomaps.com/blog/open-core-to-open-source/" target="_blank" rel="noopener noreferrer">open source</a> static site generator for maps.</p>
+<p>Let's use them together!</p>
+<div class="observablehq observablehq--block"><!--:f73127f2:--></div>
+<h1 id="basic-api" tabindex="-1"><a class="observablehq-header-anchor" href="#basic-api">Basic: API</a></h1>
+<p>Just a sharp basemap built from OpenStreetMap, using Leaflet, with vector tiles loaded from <a href="https://protomaps.com/other" target="_blank" rel="noopener noreferrer">api.protomaps.com (API key required).</a></p>
+<div class="observablehq observablehq--block"><!--:999595b5:--></div>
+<div class="observablehq observablehq--block"><!--:534d1b0f:--></div>
+<h1 id="basic-no-api" tabindex="-1"><a class="observablehq-header-anchor" href="#basic-no-api">Basic: No API</a></h1>
+<p>The same map, but reading from a <a href="https://beta.source.coop/repositories/protomaps/openstreetmap/description/" target="_blank" rel="noopener noreferrer">single PMTiles basemap archive</a> hosted on <a href="https://source.coop" target="_blank" rel="noopener noreferrer">Source Cooperative</a>. No API keys needed, no tileserver needed! CORS required, though. Each tile is loaded via HTTP Range Requests.</p>
+<div class="observablehq observablehq--block"><!--:0ebf2b32:--></div>
+<h1 id="themes" tabindex="-1"><a class="observablehq-header-anchor" href="#themes">Themes</a></h1>
+<p>Client-side rendered map means we can have... dark mode!</p>
+<div class="observablehq observablehq--block"><!--:1410ba43:--></div>
+<h1 id="tiled-data-loading" tabindex="-1"><a class="observablehq-header-anchor" href="#tiled-data-loading">Tiled Data Loading</a></h1>
+<p>Overlaying a 20 megabyte PMTiles archive in the Observable Framework's <code>data/</code> dir. Each tile is loaded via HTTP Range Requests.</p>
+<div class="observablehq observablehq--block"><!--:79fddfbb:--></div>
+<div class="observablehq observablehq--block"><!--:40e0934e:--></div>
+<h1 id="interaction-map-libre-gl-js" tabindex="-1"><a class="observablehq-header-anchor" href="#interaction-map-libre-gl-js">Interaction: MapLibre GL JS</a></h1>
+<p><a href="https://maplibre.org" target="_blank" rel="noopener noreferrer">MapLibre GL JS</a> is more advanced than leaflet. Use it if you require:</p>
+<ul>
+<li>Transparent overlay layers</li>
+<li>Smooth, continuous zoom</li>
+<li>Feature interaction with popups and hover states</li>
+</ul>
+<div class="observablehq observablehq--block"><!--:c28fb4f9:--></div>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/maplibre-gl@4.0.2/dist/maplibre-gl.css">
+<div class="observablehq observablehq--block"><!--:b177ac82:--></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./example-dashboard"><span>Example dashboard</span></a><a rel="next" href="./example-report"><span>Example report</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-12-03T02:47:28">Dec 3, 2025</a>.</div>
+</footer>
+</div>
